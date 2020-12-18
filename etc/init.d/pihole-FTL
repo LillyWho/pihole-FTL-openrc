@@ -2,7 +2,7 @@
 command="/usr/bin/pihole-FTL"
 pidfile="/run/pihole-FTL/pihole-FTL.pid"
 command_background="yes"
-
+cfgfile="/etc/pihole/pihole-FTL.conf"
 
 depend() {
 	use dns logger
