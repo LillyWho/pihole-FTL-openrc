@@ -1,13 +1,20 @@
 #!/usr/bin/openrc-run
 command="/usr/bin/pihole-FTL"
+<<<<<<< Updated upstream
 pidfile="/run/pihole-FTL/pihole-FTL.pid"
 command_background="yes"
 cfgfile="/etc/pihole/pihole-FTL.conf"
+=======
+pidfile="/run/pihole-ftl/pihole-FTL.pid"
+cfgfile="/etc/pihole/pihole-FTL.conf"
+start_stop_daemon_args="--user pihole"
+>>>>>>> Stashed changes
 
 depend() {
-	use dns logger
-}
+	after net
+	use logger
 
+<<<<<<< Updated upstream
 start() {
 	ebegin "Starting pihole-FTL"
 	start-stop-daemon --start \
@@ -32,4 +39,12 @@ restart() {
         --exec /usr/bin/pihole-FTL \
         --pidfile /run/pihole-FTL/pihole-FTL.pid
 	
+=======
+}
+
+start_pre() {
+
+	chown -R pihole:http /etc/pihole
+
+>>>>>>> Stashed changes
 }
