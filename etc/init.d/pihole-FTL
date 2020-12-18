@@ -1,22 +1,35 @@
 #!/usr/bin/openrc-run
 command="/usr/bin/pihole-FTL"
 pidfile="/run/pihole-FTL/pihole-FTL.pid"
+command_background="yes"
+
 
 depend() {
 	use dns logger
 }
 
 start() {
-	/usr/bin/pihole-FTL
+	ebegin "Starting pihole-FTL"
+	start-stop-daemon --start \
+	--user pihole \
+        --exec /usr/bin/pihole-FTL \
+        --pidfile /run/pihole-FTL/pihole-FTL.pid \
 }
 
 stop() {
-	killall -s6 pihole-FTL
-	rm /run/pihole-FTL/pihole-FTL.pid
+	ebegin "Stopping pihole-FTL"
+	start-stop-daemon --stop \
+	--exec /usr/bin/pihole-FTL
 }
 
 restart() {
-	killall -s6 pihole-FTL
-        rm /run/pihole-FTL/pihole-FTL.pid
-	/usr/bin/pihole-FTL 
+	ebegin "Stopping pihole-FTL"
+	start-stop-daemon --stop \
+	--exec /usr/bin/pihole-FTL
+	ebegin "Starting pihole-FTL"
+	start-stop-daemon --start \
+	--user pihole \
+        --exec /usr/bin/pihole-FTL \
+        --pidfile /run/pihole-FTL/pihole-FTL.pid
+	
 }
