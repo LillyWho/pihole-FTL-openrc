@@ -1,17 +1,22 @@
 #!/usr/bin/openrc-run
 command="/usr/bin/pihole-FTL"
+description="Launches the pihole-FTL service"
+command_user="pihole"
 pidfile="/run/pihole-ftl/pihole-FTL.pid"
 cfgfile="/etc/pihole/pihole-FTL.conf"
-start_stop_daemon_args="--user pihole"
+
 
 depend() {
-	after net
+	need network
 	use logger
 
 }
 
 start_pre() {
 
-	chown -R pihole:http /etc/pihole
+	chown root:root /etc/pihole/*
+	chown pihole:pihole /etc/pihole/pihole-FTL.conf
+	chown pihole:pihole /etc/pihole/pihole-FTL.db
+	chown pihole:pihole /etc/pihole/dhcp.leases
 
 }
